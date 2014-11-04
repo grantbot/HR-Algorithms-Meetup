@@ -24,6 +24,40 @@
 
 var size = 12;
 
+var solution = function(input) {
+    for (var row = size -2; row >= 0; row--) {
+        for (var col = 0; col < size; col ++) {
+            var left = input[row+1][col-1] || Infinity;
+            var center = input[row+1][col];
+            var right = input[row+1][col+1] || INfinity;
+
+            //Update square above
+            input[row][col] += Math.min.apply(null, [left, center, right]);
+        }
+    }
+}
+//And then run greedy algo on the resulting output
+
+var bestPath = function(input) {
+
+    for (var j = input.length - 1; j >= 0; j--) {
+        var currentRow = input[j];
+
+        for (var i = 0; i < currentRow.length; i++) {
+            var bestPath;
+            if (i = 0) {
+                bestPath = Math.min(input[currentRow + 1][i], input[currentRow + 1][i + 1]);
+            } else if (i = input.length - 1) {
+                bestPath = Math.min(input[currentRow + 1[i]], input[currentRow + 1][i-1]);
+            } else {
+                bestPath = Math.min(input[currentRow+1][i], input[currentRow + 1[i+1], input[currentRow + 1[i-1]]);
+            }
+
+            currentRow[i] += bestPath;
+        }
+    }
+};
+
 var findMinimumPath = function(input) {
 
   // This is the "greedy" solution - it's not very good, because
